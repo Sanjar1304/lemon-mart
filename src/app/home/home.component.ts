@@ -3,15 +3,26 @@ import { Component, OnInit } from '@angular/core'
 @Component({
   selector: 'app-home',
   template: `
-    <div fxLayout="column" fxLayoutAlign="center center">
-      <span class="mat-display-2">Hello, Limoncu !</span>
+    <div class="home-container">
+      <span class="home-title">Hello, Limoncu !</span>
       <button mat-raised-button color="primary">Login</button>
     </div>
   `,
   styles: [
     `
-      div[fxLayout] {
+      .home-container {
         margin-top: 32px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+      }
+      .home-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
       }
     `,
   ],
