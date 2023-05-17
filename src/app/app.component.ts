@@ -12,8 +12,8 @@ export class AppComponent {
 
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
-      'lemon',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/img/icons/lemon.png')
+      'lemons',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/img/icons/lemons-citrus-pd.svg')
     )
   }
 }
