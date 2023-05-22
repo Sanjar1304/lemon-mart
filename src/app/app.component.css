@@ -1,0 +1,7 @@
+:host ::ng-deep mat-toolbar {
+  gap: 0.75rem;
+}
+
+:host ::ng-deep mat-icon {
+  cursor: pointer;
+}
