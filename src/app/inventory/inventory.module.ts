@@ -3,10 +3,13 @@ import { NgModule } from '@angular/core'
 
 import { MaterialModule } from '../material.module'
 import { InventoryRoutingModule } from './inventory-routing.module'
-import { InventoryComponent } from './inventory.component'
+import { InventoryComponent } from './inventory.component';
+import { InventoryHomeComponent } from './inventory-home/inventory-home.component';
+import { StockEntryComponent } from './stock-entry/stock-entry.component';
+import { CategoriesComponent } from './categories/categories.component'
 
 @NgModule({
-  declarations: [InventoryComponent],
+  declarations: [InventoryComponent, InventoryHomeComponent, StockEntryComponent, CategoriesComponent],
   imports: [CommonModule, InventoryRoutingModule, MaterialModule],
 })
 export class InventoryModule {}
