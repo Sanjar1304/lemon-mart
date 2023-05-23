@@ -1,17 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common'
+import { NgModule } from '@angular/core'
 
-import { PosRoutingModule } from './pos-routing.module';
-import { PosComponent } from './pos/pos.component';
-
+import { MaterialModule } from '../material.module'
+import { PosRoutingModule } from './pos-routing.module'
+import { PosComponent } from './pos.component'
 
 @NgModule({
-  declarations: [
-    PosComponent
-  ],
-  imports: [
-    CommonModule,
-    PosRoutingModule
-  ]
+  declarations: [PosComponent],
+  imports: [CommonModule, PosRoutingModule, MaterialModule],
 })
-export class PosModule { }
+export class PosModule {}
