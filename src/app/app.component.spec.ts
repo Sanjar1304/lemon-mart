@@ -2,11 +2,26 @@ import { TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 
 import { AppComponent } from './app.component'
+import { MediaObserver } from '@angular/flex-layout/core'
+import { MatIconRegistry } from '@angular/material/icon'
+import { DomSanitizer } from '@angular/platform-browser'
+import {
+  DomSanitizerFake,
+  MatIconRegistryFake,
+  MediaObserverFake,
+  commonTestingModules,
+  commonTestingProviders,
+} from './common/common.testing'
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, commonTestingModules],
+      providers: commonTestingProviders.concat([
+        { provide: MediaObserver, useClass: MediaObserverFake },
+        { provide: MatIconRegistry, useClass: MatIconRegistryFake },
+        { provide: DomSanitizer, useClass: DomSanitizerFake },
+      ]),
       declarations: [AppComponent],
     }).compileComponents()
   })
