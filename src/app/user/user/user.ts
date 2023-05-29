@@ -6,7 +6,6 @@ import { IUser } from './IUser'
 
 export class User implements IUser {
   constructor(
-    // tslint:disable-next-line: variable-name
     public _id = '',
     public email = '',
     public name = { first: '', middle: '', last: '' } as IName,
