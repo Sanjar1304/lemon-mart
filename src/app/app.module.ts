@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser'
 
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
+import { AuthService } from './auth/auth.service'
+import { InMemoryAuthService } from './auth/inmemory.service'
 import { HomeComponent } from './home/home.component'
 import { InventoryModule } from './inventory/inventory.module'
 import { ManagerModule } from './manager/manager.module'
@@ -24,7 +26,12 @@ import { UserModule } from './user/user.module'
     PosModule,
     UserModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthService,
+      useClass: InMemoryAuthService,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
