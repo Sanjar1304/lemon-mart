@@ -7,6 +7,7 @@ export interface IUser {
   _id: string
   email: string
   name: IName
+  readonly fullName?: string
   picture: string
   role: Role | string
   userStatus: boolean
