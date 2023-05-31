@@ -1,6 +1,17 @@
 import { Injectable } from '@angular/core'
-import { BehaviorSubject, Observable } from 'rxjs'
+import * as jwt_decode from 'jwt-decode'
+import {
+  BehaviorSubject,
+  Observable,
+  catchError,
+  filter,
+  map,
+  mergeMap,
+  tap,
+  throwError,
+} from 'rxjs'
 
+import { transformError } from '../common/common'
 import { IUser } from '../user/user/IUser'
 import { User } from '../user/user/user'
 import { Role } from './auth.enum'
@@ -29,7 +40,27 @@ export abstract class AuthService implements IAuthService {
   constructor() {}
 
   login(email: string, password: string): Observable<void> {
-    throw new Error('Method not implemented')
+    const loginResponse$ = this.authProvider(email, password).pipe(
+      map((value) => {
+        // @ts-ignore
+        const token = jwt_decode(value.accessToken)
+        return this.transformJwtToken(token)
+      }),
+      tap((status) => this.authStatus$.next(status)),
+      filter((status: IAuthStatus) => status.isAuthenticated),
+      mergeMap(() => this.getCurrentUser()),
+      map((user) => this.currentUser$.next(user)),
+      catchError(transformError)
+    )
+
+    loginResponse$.subscribe({
+      error: (err) => {
+        this.logout()
+        return throwError(() => new Error(err))
+      },
+    })
+
+    return loginResponse$
   }
 
   logout(clearToken?: boolean | undefined): void {}
