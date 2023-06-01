@@ -15,6 +15,7 @@ import { transformError } from '../common/common'
 import { IUser } from '../user/user/IUser'
 import { User } from '../user/user/user'
 import { Role } from './auth.enum'
+import { CacheService } from './cache.service'
 import { IAuthService } from './interfaces/IAuthService'
 import { IAuthStatus } from './interfaces/IAuthStatus'
 import { IServerAuthResponse } from './interfaces/IServerAuthResponse'
@@ -26,8 +27,10 @@ export const defaultAuthStatus: IAuthStatus = {
 }
 
 @Injectable()
-export abstract class AuthService implements IAuthService {
-  readonly authStatus$ = new BehaviorSubject<IAuthStatus>(defaultAuthStatus)
+export abstract class AuthService extends CacheService implements IAuthService {
+  readonly authStatus$ = new BehaviorSubject<IAuthStatus>(
+    this.getItem('authStatus') ?? defaultAuthStatus
+  )
   readonly currentUser$ = new BehaviorSubject<IUser>(new User())
 
   protected abstract authProvider(
@@ -37,7 +40,10 @@ export abstract class AuthService implements IAuthService {
   protected abstract transformJwtToken(token: unknown): IAuthStatus
   protected abstract getCurrentUser(): Observable<User>
 
-  constructor() {}
+  constructor() {
+    super()
+    this.authStatus$.pipe(tap((authStatus) => this.setItem('authStatus', authStatus)))
+  }
 
   login(email: string, password: string): Observable<void> {
     const loginResponse$ = this.authProvider(email, password).pipe(
