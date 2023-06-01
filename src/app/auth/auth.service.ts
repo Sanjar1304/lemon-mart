@@ -63,7 +63,9 @@ export abstract class AuthService implements IAuthService {
     return loginResponse$
   }
 
-  logout(clearToken?: boolean | undefined): void {}
+  logout(clearToken?: boolean): void {
+    setTimeout(() => this.authStatus$.next(defaultAuthStatus), 0)
+  }
 
   getToken(): string {
     throw new Error('Method not implemented')
