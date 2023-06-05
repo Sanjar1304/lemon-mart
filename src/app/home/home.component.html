@@ -1,10 +1,10 @@
 <div class="home-container">
   <span class="home-title">Hello, Limoncu !</span>
-  <button mat-raised-button color="primary" routerLink="/manager" class="btn-1">
+  <button mat-raised-button color="primary" (click)="login()" class="btn-1">
     Login as Manager
   </button>
 
-  <button mat-raised-button color="primary" routerLink="/inventory" class="btn-2">Enter
-    into
-    inventory</button>
+  <button mat-raised-button color="primary" routerLink="/inventory" class="btn-2">
+    Enter into inventory
+  </button>
 </div>
