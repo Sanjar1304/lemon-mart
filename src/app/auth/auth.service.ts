@@ -61,6 +61,9 @@ export abstract class AuthService extends CacheService implements IAuthService {
   }
   protected abstract transformJwtToken(token: unknown): IAuthStatus
   protected abstract getCurrentUser(): Observable<User>
+  protected readonly resumeCurrentUser$ = this.authStatus$.pipe(
+    this.getAndUpdateUserIfAuthenticate
+  )
 
   constructor() {
     super()
@@ -68,8 +71,8 @@ export abstract class AuthService extends CacheService implements IAuthService {
       this.logout(true)
     } else {
       this.authStatus$.next(this.getAuthStatusFromToken())
+      setTimeout(() => this.resumeCurrentUser$.subscribe(), 0)
     }
-    this.authStatus$.pipe(tap((authStatus) => this.setItem('authStatus', authStatus)))
   }
 
   login(email: string, password: string): Observable<void> {
