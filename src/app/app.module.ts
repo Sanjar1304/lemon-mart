@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http'
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -6,6 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
+import { AuthHttpInterceptor } from './auth/auth-http-interceptor'
 import { AuthService } from './auth/auth.service'
 import { InMemoryAuthService } from './auth/inmemory.service'
 import { HomeComponent } from './home/home.component'
@@ -34,6 +35,11 @@ import { UserModule } from './user/user.module'
     {
       provide: AuthService,
       useClass: InMemoryAuthService,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthHttpInterceptor,
+      multi: true,
     },
   ],
   bootstrap: [AppComponent],
