@@ -9,7 +9,9 @@ import { AuthService } from './auth.service'
 import { IAuthStatus } from './interfaces/IAuthStatus'
 import { IServerAuthResponse } from './interfaces/IServerAuthResponse'
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class InMemoryAuthService extends AuthService {
   private defaultUser = User.Build({
     _id: '5da01751da27cc462d265913',

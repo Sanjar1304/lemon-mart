@@ -27,7 +27,9 @@ export const defaultAuthStatus: IAuthStatus = {
   userId: '',
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export abstract class AuthService extends CacheService implements IAuthService {
   readonly authStatus$ = new BehaviorSubject<IAuthStatus>(
     this.getItem('authStatus') ?? defaultAuthStatus

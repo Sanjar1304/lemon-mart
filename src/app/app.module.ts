@@ -33,11 +33,7 @@ import { UserModule } from './user/user.module'
   ],
   providers: [
     {
-      provide: AuthService,
-      useClass: InMemoryAuthService,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
+      provide: [HTTP_INTERCEPTORS],
       useClass: AuthHttpInterceptor,
       multi: true,
     },
